@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Student Performance Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>AI-Based Student Performance Prediction System</h1>
+            <p class="subtitle">Enter student academic and lifestyle details to predict performance.</p>
+
+            <form method="POST">
+                <div class="grid">
+                    <div class="field">
+                        <label>Attendance (%)</label>
+                        <input type="number" name="attendance" min="0" max="100" step="0.1" required placeholder="e.g. 85">
+                    </div>
+                    <div class="field">
+                        <label>Study Hours / Day</label>
+                        <input type="number" name="study_hours" min="0" max="24" step="0.1" required placeholder="e.g. 4">
+                    </div>
+                    <div class="field">
+                        <label>Previous Marks (%)</label>
+                        <input type="number" name="previous_marks" min="0" max="100" step="0.1" required placeholder="e.g. 75">
+                    </div>
+                    <div class="field">
+                        <label>Assignment Score (%)</label>
+                        <input type="number" name="assignment_score" min="0" max="100" step="0.1" required placeholder="e.g. 80">
+                    </div>
+                    <div class="field">
+                        <label>Internal Marks (%)</label>
+                        <input type="number" name="internal_marks" min="0" max="100" step="0.1" required placeholder="e.g. 78">
+                    </div>
+                    <div class="field">
+                        <label>Sleep Hours / Day</label>
+                        <input type="number" name="sleep_hours" min="0" max="24" step="0.1" required placeholder="e.g. 7">
+                    </div>
+                </div>
+                <button type="submit">Predict Performance</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result {% if prediction == 'Good' %}good{% else %}warning{% endif %}">
+                <h2>Prediction: {{ prediction }}</h2>
+                <p>Prediction Confidence: <strong>{{ probability }}%</strong></p>
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="result error">
+                <h2>Error</h2>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <p class="footer">Machine Learning Mini Project • Flask + Scikit-learn</p>
+        </div>
+    </div>
+</body>
+</html>
